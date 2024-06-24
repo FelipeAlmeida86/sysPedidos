@@ -6,7 +6,7 @@
         rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
         crossorigin="anonymous">
 
-        <title>Listagem de estados</title>
+        <title>Listagem de Cientes</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg" style="background-color: #48be8d;" data-bs-theme="dark">
@@ -21,13 +21,13 @@
                     <a class="nav-link active" aria-current="page" href="/app/index.html">Home</a>
                   </li>
                   <li class="nav-item">
+                    <a class="nav-link" href="/app/estados.html"target="_blank">Estados</a>
+                  </li>
+                  <li class="nav-item">
                     <a class="nav-link" href="/app/municipios.html"target="_blank">Municipios</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/app/clientes"target="_blank">Clientes</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/app/produtos"target="_blank">Produtos</a>
+                    <a class="nav-link" href="/app/produtos.html"target="_blank">Produtos</a>
                   </li>
                 </ul>
               </div>
@@ -35,13 +35,43 @@
           </nav>
         <h1>Sistema de Pedidos</h1>        
         <div>
-            <p>Listagem de estados</p>
+            <p>Listagem de Clientes</p>
             <form>
                 <label>ID: </label>
                 <input type="text" id="tx_id" disabled="disabled" readonly="readonly"/>
                 <br>
-                <label> NOME: </label>
-                <input type="text" id="tx_nome"/>
+                <label> MUNICÍPIO: </label>
+                <input type="text" id="id_municipio" disabled="disabled" readonly="readonly"/>
+                <br>
+                <label>RAZÃO SOCIAL: </label>
+                <input type="text" id="tx_nome_razao_social"/>
+                <br>
+                <label> CPF: </label>
+                <input type="text" id="tx_cpf"/>
+                <br>
+                <label> CNPJ: </label>
+                <input type="text" id="tx_cnpj"/>
+                <br>
+                <label> TELEFONE: </label>
+                <input type="text" id="tx_telefone"/>
+                <br>
+                <label> ENDEREÇO: </label>
+                <input type="text" id="tx_endereco"/>
+                <br>
+                <label> BAIRRO: </label>
+                <input type="text" id="tx_bairro"/>
+                <br>
+                <label> CEP: </label>
+                <input type="text" id="tx_cep"/>
+                <br>
+                <label> EMAIL: </label>
+                <input type="text" id="tx_email"/>
+                <br>
+                <label> ATIVO: </label>
+                <input type="text" id="bo_ativo"/>
+                <br>
+                <label> INFORMAÇÕES: </label>
+                <input type="text" id="tx_informacoes"/>
                 <br>
                 <button type="button" onclick="criar()">Criar</button>
                 <button type="button" onclick="alterar()">Alterar</button>
@@ -55,68 +85,103 @@
 <script>
     function limpar(){
         document.getElementById("tx_id").value = "";
-        document.getElementById("tx_nome").value = "";
+        document.getElementById("id_municipio").value = "";
+        document.getElementById("tx_nome_razao_social").value = "";
+        document.getElementById("tx_cpf").value = "";
+        document.getElementById("tx_cnpj").value = "";
+        document.getElementById("tx_telefone").value = "";
+        document.getElementById("tx_endereco").value = "";
+        document.getElementById("tx_bairro").value = "";
+        document.getElementById("tx_cep").value = "";
+        document.getElementById("tx_email").value = "";
+        document.getElementById("bo_ativo").value = "";
+        document.getElementById("tx_informacoes").value = "";
+
+
     }
     function alterar(){
-       console.log("Alterar estado!!!!");
+       console.log("Alterar cliente!!!!");
        var xhttp = new XMLHttpRequest();
        xhttp.onreadystatechange = function(){
           if(this.readyState == 4 && this.status==200){
-                alert("Estado alterado com sucesso");
+                alert("cliente alterado com sucesso");
                 carregar();
           }}
-       xhttp.open("PUT","/estado/" + document.getElementById("tx_id").value);
+       xhttp.open("PUT","/cliente/" + document.getElementById("tx_id").value);
        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-       xhttp.send(JSON.stringify({id:document.getElementById("tx_id").value, nome: document.getElementById("tx_nome").value}));
+       xhttp.send(JSON.stringify({id:document.getElementById("tx_id").value, id_mmunicipio: document.getElementById("id_municipio").value,
+    razaoSocial: document.getElementById("tx_nome_razao_social").value, 
+    cpf: document.getElementById("tx_cpf").value, cnpj: document.getElementById("tx_cnpj").value,
+telefone: document.getElementById("tx_telefone").value, endereco: document.getElementById("tx_endereco").value,
+bairro: document.getElementById("tx_bairro").value, cep: document.getElementById("tx_cep").value,
+email: document.getElementById("tx_email").value, ativo:document.getElementById("bo_ativo").value,
+informacoes: document.getElementById("tx_informacoes".value)}));
     }
 
-    function excluir(id_estado){
-       console.log("excluir estado!!!!");
+    function excluir(id_Cliente){
+       console.log("excluir cliente!!!!");
        var xhttp = new XMLHttpRequest();
        xhttp.onreadystatechange = function(){
           if(this.readyState == 4 && this.status==200){
-                alert("Estado excluído com sucesso");
+                alert("Cliente excluído com sucesso");
                 carregar();
           }}
-       xhttp.open("DELETE","/estado/" + id_estado);
+       xhttp.open("DELETE","/cliente/" + id_cliente);
        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
        xhttp.send();
     }
     function criar(){
-       console.log("Criar novo estado!!!!");
+       console.log("Criar novo cliente!!!!");
        var xhttp = new XMLHttpRequest();
        xhttp.onreadystatechange = function(){
           if(this.readyState == 4 && this.status==200){
-                alert("Estado criado com sucesso");
+                alert("Cliente criado com sucesso");
                 carregar();
           }}
-       xhttp.open("POST","/estado");
+       xhttp.open("POST","/cliente");
        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-       xhttp.send(JSON.stringify({id:null, nome: document.getElementById("tx_nome").value}));
+       xhttp.send(JSON.stringify({id:null, id_municipio: document.getElementById("id_municipio").value,
+    razaoSocial: document.getElementById("tx_nome_razao_social").value, 
+    cpf: document.getElementById("tx_cpf").value, cnpj: document.getElementById("tx_cnpj").value,
+telefone: document.getElementById("tx_telefone").value, endereco: document.getElementById("tx_endereco").value,
+bairro: document.getElementById("tx_bairro").value, cep: document.getElementById("tx_cep").value,
+email: document.getElementById("tx_email").value, ativo:document.getElementById("bo_ativo").value,
+informacoes: document.getElementById("tx_informacoes").value}));
     }
 
-    function preencher (id_estado, nome_estado){
-        console.log(id_estado, nome_estado);
-        document.getElementById("tx_id").value = id_estado;
-        document.getElementById("tx_nome").value = decodeURI(nome_estado) ;
+    function preencher (id_cliente, id_municipio_cliente, razaoSocial_cliente, cpf_cliente, cnpj_cliente,
+        telefone_cliente, endereco_cliente, bairro_cliente, cep_cliente, email_cliente, ativo_cliente, informacao_cliente){
+        console.log(id_produto, descricao_produto, quantidadeEstoque_produto, precoUndadeAtual_produto, ativo_produto);
+        document.getElementById("tx_id").value = id_cliente; 
+        document.getElementById("id_municipio").value = id_municipio_cliente;
+        document.getElementById("tx_nome_razao_social").value = razaoSocial_cliente;
+        document.getElementById("tx_cpf").value = cpf_cliente;
+        document.getElementById("tx_cnpj").value = cnpj_cliente;
+        document.getElementById("tx_telefone").value = telefone_cliente;
+        document.getElementById("tx_endereco").value = endereco_cliente;
+        document.getElementById("tx_bairro").value = bairro_cliente;
+        document.getElementById("tx_cep").value = cep_cliente;
+        document.getElementById("tx_email").value = email_cliente;
+        document.getElementById("bo_ativo").value =  ativo_cliente;
+        document.getElementById("tx_informacoes").value = informacao_cliente;
     }
     function carregar(){
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){ 
             var dados = JSON.parse(this.responseText); 
-            var conteudo ="<tr> <th>ID</th> <th>Nome</th> <th>Ações</th> </tr>";        
-            for(var estado of dados){
-                conteudo += "<tr> <td>" + estado.id + " </td> <td>"+ estado.nome + "</td>";
-                conteudo += "<td> <button type='button' onclick=preencher('"+ estado.id +"','"+ encodeURI(estado.nome)+"')>Alterar</button>  ";    
-                conteudo += "<button type='button' onclick='excluir("+ estado.id +")'>Excluir</button></td></tr>";
+            var conteudo ="<tr> <th>ID</th> <th>Descrição</th> <th>Quantidade de Estoque</th> <th>Peço Unitário Atual</th> <th>Ativo</th> <th>Ações</th> </tr>";        
+            for(var cliente of dados){
+                conteudo += "<tr> <td>" + cliente.id + " </td> <td>"+ cliente.descricao + "</td> <td>"+ produto.quantidadeEstoque + "</td> <td>"+ produto.precoUndadeAtual + "</td> <td>"+ produto.ativo + "</td>";
+                conteudo += "<td> <button type='button' onclick=preencher('"+ produto.id +"','"+ encodeURI(produto.descricao)+"','"+ encodeURI(produto.quantidadeEstoque )+"','"+ encodeURI(produto.precoUndadeAtual)+"','"+ encodeURI(produto.ativo)+"')>Alterar</button>";    
+                conteudo += "<button type='button' onclick='excluir("+ produto.id +")'>Excluir</button></td></tr>";
             }
             document.getElementById("listagem").innerHTML = conteudo;
             limpar();
             console.log(this.responseText);
             console.log(dados);  }
         };
-        xhttp.open("GET","/estados");
+        xhttp.open("GET","/clientes");
         xhttp.send();
     }
 
