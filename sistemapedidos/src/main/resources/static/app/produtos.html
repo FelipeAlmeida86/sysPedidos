@@ -24,10 +24,10 @@
                     <a class="nav-link" href="/app/estados.html"target="_blank">Estados</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/app/municipios"target="_blank">Municipios</a>
+                    <a class="nav-link" href="/app/municipios.html"target="_blank">Municipios</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/app/clientes"target="_blank">Clientes</a>
+                    <a class="nav-link" href="/app/clientes.html"target="_blank">Clientes</a>
                   </li>
                 </ul>
               </div>
@@ -127,16 +127,16 @@
             var dados = JSON.parse(this.responseText); 
             var conteudo ="<tr> <th>ID</th> <th>Descrição</th> <th>Quantidade de Estoque</th> <th>Peço Unitário Atual</th> <th>Ativo</th> <th>Ações</th> </tr>";        
             for(var produto of dados){
-                conteudo += "<tr> <td>" + produdos.id + " </td> <td>"+ produtos.descricao + "</td> </td> <td>"+ produtos.quantidadeEstoque + "</td></td> <td>"+ produtos.precoUndadeAtual + "</td> </td> <td>"+ produtos.ativo + "</td>";
-                conteudo += "<td> <button type='button' onclick=preencher('"+ produdos.id +"','"+ encodeURI(produtos.descricao)+"','"+ encodeURI(rodutos.quantidadeEstoque )+"''"+ encodeURI(produtos.precoUndadeAtual)+"''"+ encodeURI(produtos.ativo)+"')>Alterar</button>  ";    
-                conteudo += "<button type='button' onclick='excluir("+ estado.id +")'>Excluir</button></td></tr>";
+                conteudo += "<tr> <td>" + produto.id + " </td> <td>"+ produto.descricao + "</td> <td>"+ produto.quantidadeEstoque + "</td> <td>"+ produto.precoUndadeAtual + "</td> <td>"+ produto.ativo + "</td>";
+                conteudo += "<td> <button type='button' onclick=preencher('"+ produto.id +"','"+ encodeURI(produto.descricao)+"','"+ encodeURI(produto.quantidadeEstoque )+"','"+ encodeURI(produto.precoUndadeAtual)+"','"+ encodeURI(produto.ativo)+"')>Alterar</button>";    
+                conteudo += "<button type='button' onclick='excluir("+ produto.id +")'>Excluir</button></td></tr>";
             }
             document.getElementById("listagem").innerHTML = conteudo;
             limpar();
             console.log(this.responseText);
             console.log(dados);  }
         };
-        xhttp.open("GET","/produto");
+        xhttp.open("GET","/produtos");
         xhttp.send();
     }
 
