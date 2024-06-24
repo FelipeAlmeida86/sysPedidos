@@ -172,9 +172,9 @@ informacoes: document.getElementById("tx_informacoes").value}));
             var dados = JSON.parse(this.responseText); 
             var conteudo ="<tr> <th>ID</th> <th>Descrição</th> <th>Quantidade de Estoque</th> <th>Peço Unitário Atual</th> <th>Ativo</th> <th>Ações</th> </tr>";        
             for(var cliente of dados){
-                conteudo += "<tr> <td>" + cliente.id + " </td> <td>"+ cliente.descricao + "</td> <td>"+ produto.quantidadeEstoque + "</td> <td>"+ produto.precoUndadeAtual + "</td> <td>"+ produto.ativo + "</td>";
-                conteudo += "<td> <button type='button' onclick=preencher('"+ produto.id +"','"+ encodeURI(produto.descricao)+"','"+ encodeURI(produto.quantidadeEstoque )+"','"+ encodeURI(produto.precoUndadeAtual)+"','"+ encodeURI(produto.ativo)+"')>Alterar</button>";    
-                conteudo += "<button type='button' onclick='excluir("+ produto.id +")'>Excluir</button></td></tr>";
+                conteudo += "<tr> <td>" + cliente.id + " </td> <td>"+ cliente.id_municipio + "</td> <td>"+ cliente.razaoSocial + "</td> <td>"+ cliente.cpf + "</td> <td>"+ cliente.cnpj + "</td> <td>"+ cliente.telefone + "</td> <td>"+ cliente.endereco + "</td> <td>"+ cliente.bairro + "</td> <td>"+ cliente.cep + "</td> <td>"+ cliente.email + "</td> <td>"+ cliente.ativo + "</td> <td>"+ cliente.informcoes + "</td>";
+                conteudo += "<td> <button type='button' onclick=preencher('"+ cliente.id +"','"+ encodeURI(ciente.id_municipio)+"','"+ encodeURI(cliente.razaoSocial )+"','"+ encodeURI(cliente.cpf)+"','"+ encodeURI(cliente.cnpj)+"', ,'"+ encodeURI(cliente.telefone)+"','"+ encodeURI(cliente.endereco)+"','"+ encodeURI(cliente.bairro)+"','"+ encodeURI(cliente.cep)+"','"+ encodeURI(cliente.email)+"','"+ encodeURI(cliente.ativo)+"','"+ encodeURI(cliente.informacoes)+"')>Alterar</button>";    
+                conteudo += "<button type='button' onclick='excluir("+ cliente.id +")'>Excluir</button></td></tr>";
             }
             document.getElementById("listagem").innerHTML = conteudo;
             limpar();
