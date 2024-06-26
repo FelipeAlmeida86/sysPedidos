@@ -83,12 +83,14 @@
           }}
        xhttp.open("PUT","/produto/" + document.getElementById("tx_id").value);
        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-       xhttp.send(JSON.stringify({id:document.getElementById("tx_id").value, descricao: document.getElementById("tx_descricao").value,
-    quantidadeEstoque: document.getElementById("dbl_quantidade_estoque").value, 
-    precoUndAtual: document.getElementById("nu_preco_unidade_atual").value, ativo: document.getElementById("bo_ativo").value}));
+       xhttp.send(JSON.stringify({id:document.getElementById("tx_id").value, 
+       descricao: document.getElementById("tx_descricao").value,
+       quantidadeEstoque: document.getElementById("dbl_quantidade_estoque").value, 
+       precoUnidadeAtual: document.getElementById("nu_preco_unidade_atual").value, 
+       ativo: document.getElementById("bo_ativo").value}));
     }
 
-    function excluir(id_Produto){
+    function excluir(id_produto){
        console.log("excluir produto!!!!");
        var xhttp = new XMLHttpRequest();
        xhttp.onreadystatechange = function(){
@@ -112,15 +114,16 @@
        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
        xhttp.send(JSON.stringify({id:null, descricao: document.getElementById("tx_descricao").value,
     quantidadeEstoque: document.getElementById("dbl_quantidade_estoque").value, 
-    precoUndAtual: document.getElementById("nu_preco_unidade_atual").value, ativo: document.getElementById("bo_ativo").value}));
+    precoUnidadeAtual: document.getElementById("nu_preco_unidade_atual").value, 
+    ativo: document.getElementById("bo_ativo").value}));
     }
 
-    function preencher (id_produto, descricao_produto, quantidadeEstoque_produto, precoUndAtual_produto, ativo_produto){
-        console.log(id_produto, descricao_produto, quantidadeEstoque_produto, precoUndAtual_produto, ativo_produto);
+    function preencher (id_produto, descricao_produto, quantidadeEstoque_produto, precoUnidadeAtual_produto, ativo_produto){
+        console.log(id_produto, descricao_produto, quantidadeEstoque_produto, precoUnidadeAtual_produto, ativo_produto);
         document.getElementById("tx_id").value = id_produto;
         document.getElementById("tx_descricao").value = decodeURI(descricao_produto) ;
         document.getElementById("dbl_quantidade_estoque").value = decodeURI(quantidadeEstoque_produto);
-        document.getElementById("nu_preco_unidade_atual").value = decodeURI(precoUndAtual_produto);
+        document.getElementById("nu_preco_unidade_atual").value = decodeURI(precoUnidadeAtual_produto);
         document.getElementById("bo_ativo").value = decodeURI(ativo_produto);
     }
     function carregar(){
