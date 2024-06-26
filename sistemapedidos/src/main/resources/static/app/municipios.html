@@ -48,7 +48,7 @@
                 </select>
                 <br>
                 <label> ENTREGA: </label>
-                      <select id="bo_ativo">
+                      <select id="bo_entrega">
                           <option value="true">Sim</option>
                           <option value="false">Não</option>
                   </select>
@@ -75,9 +75,13 @@
                 alert("Municipio alterado com sucesso");
                 carregar();
           }}
-       xhttp.open("PUT","/municipio/" + document.getElementById("id").value);
+       xhttp.open("PUT","/municipio/" + document.getElementById("tx_id").value);
        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-       xhttp.send(JSON.stringify({id:document.getElementById("tx_id").value, nome: document.getElementById("tx_nome").value}));
+       xhttp.send(JSON.stringify({id:document.getElementById("tx_id").value, 
+       nome: document.getElementById("tx_nome").value, 
+       entrega: document.getElementById("bo_entrega").value,
+       estado:{id: document.getElementById("id_estado").value},
+       }));
     }
 
     function excluir(id_municipio){
@@ -85,7 +89,7 @@
        var xhttp = new XMLHttpRequest();
        xhttp.onreadystatechange = function(){
           if(this.readyState == 4 && this.status==200){
-                alert("Municipio excluído com sucesso");
+                alert("Municipio excluído com sucesso");tx_nome
                 carregar();
           }}
        xhttp.open("DELETE","/municipio/" + id_municipio);
@@ -105,15 +109,17 @@
        xhttp.send(JSON.stringify(
                   {id:null,
                     nome: document.getElementById("tx_nome").value,
-                    entrega : document.getElementById("bo_ativo").value,
+                    entrega : document.getElementById("bo_entrega").value,
                     estado:{ id:document.getElementById("id_estado").value }
                   }));
     }
 
-    function preencher (id_municipio, nome_municipio){
-        console.log(id_municipio, nome_municipio);
-        document.getElementById("id").value = id_municipio;
+    function preencher (id_municipio, nome_municipio,entrega, id_estado){
+        console.log(id_municipio, nome_municipio,entrega, id_estado);
+        document.getElementById("tx_id").value = id_municipio;
         document.getElementById("tx_nome").value = nome_municipio;
+        
+
     }
     function carregar(){
         var xhttp = new XMLHttpRequest();
