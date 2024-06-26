@@ -114,7 +114,7 @@
        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
        xhttp.send(JSON.stringify({
         id:document.getElementById("tx_id").value, 
-        municipio: document.getElementById("tx_nome").value,
+        municipio:{id: document.getElementById("id_municipio").value},
         razaoSocial: document.getElementById("tx_nome_razao_social").value, 
         cpf: document.getElementById("tx_cpf").value, 
         cnpj: document.getElementById("tx_cnpj").value,
@@ -124,7 +124,7 @@
         cep: document.getElementById("tx_cep").value,
         email: document.getElementById("tx_email").value, 
         ativo:document.getElementById("bo_ativo").value,
-        informacoes: document.getElementById("tx_informacoes".value)}));
+        informacoes: document.getElementById("tx_informacoes").value}));
     }
 
     function excluir(id_cliente){
