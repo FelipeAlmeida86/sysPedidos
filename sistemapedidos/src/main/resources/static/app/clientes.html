@@ -40,8 +40,9 @@
                 <label>ID: </label>
                 <input type="text" id="tx_id" disabled="disabled" readonly="readonly"/>
                 <br>
-                <label> MUNICÍPIO: </label>
-                <input type="text" id="id_municipio" disabled="disabled" readonly="readonly"/>
+                <label>MUNICÍPIO</label>
+                <select id="id_municipio">
+                </select>
                 <br>
                 <label>RAZÃO SOCIAL: </label>
                 <input type="text" id="tx_nome_razao_social"/>
@@ -68,7 +69,10 @@
                 <input type="text" id="tx_email"/>
                 <br>
                 <label> ATIVO: </label>
-                <input type="text" id="bo_ativo"/>
+                    <select id="bo_ativo">
+                      <option value="true">Sim</option>
+                      <option value="false">Não</option>
+                    </select>
                 <br>
                 <label> INFORMAÇÕES: </label>
                 <input type="text" id="tx_informacoes"/>
@@ -85,7 +89,6 @@
 <script>
     function limpar(){
         document.getElementById("tx_id").value = "";
-        document.getElementById("id_municipio").value = "";
         document.getElementById("tx_nome_razao_social").value = "";
         document.getElementById("tx_cpf").value = "";
         document.getElementById("tx_cnpj").value = "";
@@ -109,13 +112,19 @@
           }}
        xhttp.open("PUT","/cliente/" + document.getElementById("tx_id").value);
        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-       xhttp.send(JSON.stringify({id:document.getElementById("tx_id").value, id_mmunicipio: document.getElementById("id_municipio").value,
-    razaoSocial: document.getElementById("tx_nome_razao_social").value, 
-    cpf: document.getElementById("tx_cpf").value, cnpj: document.getElementById("tx_cnpj").value,
-telefone: document.getElementById("tx_telefone").value, endereco: document.getElementById("tx_endereco").value,
-bairro: document.getElementById("tx_bairro").value, cep: document.getElementById("tx_cep").value,
-email: document.getElementById("tx_email").value, ativo:document.getElementById("bo_ativo").value,
-informacoes: document.getElementById("tx_informacoes".value)}));
+       xhttp.send(JSON.stringify({
+        id:document.getElementById("tx_id").value, 
+        municipio: document.getElementById("tx_nome").value,
+        razaoSocial: document.getElementById("tx_nome_razao_social").value, 
+        cpf: document.getElementById("tx_cpf").value, 
+        cnpj: document.getElementById("tx_cnpj").value,
+        telefone: document.getElementById("tx_telefone").value, 
+        endereco: document.getElementById("tx_endereco").value,
+        bairro: document.getElementById("tx_bairro").value, 
+        cep: document.getElementById("tx_cep").value,
+        email: document.getElementById("tx_email").value, 
+        ativo:document.getElementById("bo_ativo").value,
+        informacoes: document.getElementById("tx_informacoes".value)}));
     }
 
     function excluir(id_cliente){
@@ -140,41 +149,46 @@ informacoes: document.getElementById("tx_informacoes".value)}));
           }}
        xhttp.open("POST","/cliente");
        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-       xhttp.send(JSON.stringify({id:null, id_municipio: document.getElementById("id_municipio").value,
-    razaoSocial: document.getElementById("tx_nome_razao_social").value, 
-    cpf: document.getElementById("tx_cpf").value, cnpj: document.getElementById("tx_cnpj").value,
-telefone: document.getElementById("tx_telefone").value, endereco: document.getElementById("tx_endereco").value,
-bairro: document.getElementById("tx_bairro").value, cep: document.getElementById("tx_cep").value,
-email: document.getElementById("tx_email").value, ativo:document.getElementById("bo_ativo").value,
-informacoes: document.getElementById("tx_informacoes").value}));
+       xhttp.send(JSON.stringify({
+        id:null,
+        municipio:{id:document.getElementById("id_municipio").value}, 
+        razaoSocial: document.getElementById("tx_nome_razao_social").value, 
+        cpf: document.getElementById("tx_cpf").value, 
+        cnpj: document.getElementById("tx_cnpj").value,
+        telefone: document.getElementById("tx_telefone").value, 
+        endereco: document.getElementById("tx_endereco").value,
+        bairro: document.getElementById("tx_bairro").value, 
+        cep: document.getElementById("tx_cep").value,
+        email: document.getElementById("tx_email").value, 
+        ativo:document.getElementById("bo_ativo").value,
+        informacoes: document.getElementById("tx_informacoes").value}));
     }
 
-    function preencher (id_cliente, id_municipio_cliente, razaoSocial_cliente, cpf_cliente, cnpj_cliente,
+    function preencher (id_cliente, razaoSocial_cliente, cpf_cliente, cnpj_cliente,
         telefone_cliente, endereco_cliente, bairro_cliente, cep_cliente, email_cliente, ativo_cliente, informacao_cliente){
-        console.log(id_cliente, id_municipio_cliente, razaoSocial_cliente, cpf_cliente, cnpj_cliente,
+        console.log(id_cliente, razaoSocial_cliente, cpf_cliente, cnpj_cliente,
         telefone_cliente, endereco_cliente, bairro_cliente, cep_cliente, email_cliente, ativo_cliente, informacao_cliente);
         document.getElementById("tx_id").value = id_cliente; 
-        document.getElementById("id_municipio").value = id_municipio_cliente;
-        document.getElementById("tx_nome_razao_social").value = razaoSocial_cliente;
-        document.getElementById("tx_cpf").value = cpf_cliente;
-        document.getElementById("tx_cnpj").value = cnpj_cliente;
-        document.getElementById("tx_telefone").value = telefone_cliente;
-        document.getElementById("tx_endereco").value = endereco_cliente;
-        document.getElementById("tx_bairro").value = bairro_cliente;
-        document.getElementById("tx_cep").value = cep_cliente;
-        document.getElementById("tx_email").value = email_cliente;
-        document.getElementById("bo_ativo").value =  ativo_cliente;
-        document.getElementById("tx_informacoes").value = informacao_cliente;
+        document.getElementById("tx_nome_razao_social").value = decodeURI(razaoSocial_cliente);
+        document.getElementById("tx_cpf").value = decodeURI (cpf_cliente);
+        document.getElementById("tx_cnpj").value = decodeURI (cnpj_cliente);
+        document.getElementById("tx_telefone").value = decodeURI (telefone_cliente);
+        document.getElementById("tx_endereco").value = decodeURI (endereco_cliente);
+        document.getElementById("tx_bairro").value = decodeURI (bairro_cliente);
+        document.getElementById("tx_cep").value = decodeURI (cep_cliente);
+        document.getElementById("tx_email").value = decodeURI (email_cliente);
+        document.getElementById("bo_ativo").value = decodeURI (ativo_cliente);
+        document.getElementById("tx_informacoes").value = decodeURI (informacao_cliente);
     }
     function carregar(){
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){ 
             var dados = JSON.parse(this.responseText); 
-            var conteudo ="<tr> <th>ID</th> <th>ID Municipio</th> <th>Razão Social</th> <th>cpf</th> <th>cnpj</th> <th>Telefone</th> <th>endereço</th> <th>Bairro</th> <th>CEP</th> <th>email</th> <th>Ativo</th> <th>Informações</th> <th>Ações</th> </tr>";        
+            var conteudo ="<tr> <th>ID</th> <th>Razão Social</th> <th>cpf</th> <th>cnpj</th> <th>Telefone</th> <th>endereço</th> <th>Bairro</th> <th>CEP</th> <th>Municipio</th> <th>email</th> <th>Ativo</th> <th>Informações</th> <th>Ações</th> </tr>";        
             for(var cliente of dados){
-                conteudo += "<tr> <td>" + cliente.id + " </td> <td>"+ cliente.id_municipio_cliente + "</td> <td>"+ cliente.razaoSocial + "</td> <td>"+ cliente.cpf + "</td> <td>"+ cliente.cnpj + "</td> <td>"+ cliente.telefone + "</td> <td>"+ cliente.endereco + "</td> <td>"+ cliente.bairro + "</td> <td>"+ cliente.cep + "</td> <td>"+ cliente.email + "</td> <td>"+ (cliente.ativo?"Sim":"Não") + "</td> <td>"+ cliente.informcoes + "</td>";
-                conteudo += "<td> <button type='button' onclick=preencher('"+ cliente.id +"','"+ encodeURI(cliente.id_municipio)+"','"+ encodeURI(cliente.razaoSocial )+"','"+ encodeURI(cliente.cpf)+"','"+ encodeURI(cliente.cnpj)+"','"+ encodeURI(cliente.telefone)+"','"+ encodeURI(cliente.endereco)+"','"+ encodeURI(cliente.bairro)+"','"+ encodeURI(cliente.cep)+"','"+ encodeURI(cliente.email)+"','"+ encodeURI(cliente.ativo)+"','"+ encodeURI(cliente.informacoes)+"')>Alterar</button>";    
+                conteudo += "<tr> <td>" + cliente.id + " </td> <td>"+ cliente.razaoSocial + "</td> <td>"+ cliente.cpf + "</td> <td>"+ cliente.cnpj + "</td> <td>"+ cliente.telefone + "</td> <td>"+ cliente.endereco + "</td> <td>"+ cliente.bairro + "</td> <td>"+ cliente.cep + "</td> <td>" + cliente.municipio.nome + " </td> <td>"+ cliente.email + "</td> <td>"+ (cliente.ativo?"Sim":"Não") + "</td> <td>"+ cliente.informacoes + "</td>";
+                conteudo += "<td> <button type='button' onclick=preencher('"+ cliente.id +"','"+ encodeURI(cliente.razaoSocial )+"','"+ encodeURI(cliente.cpf)+"','"+ encodeURI(cliente.cnpj)+"','"+ encodeURI(cliente.telefone)+"','"+ encodeURI(cliente.endereco)+"','"+ encodeURI(cliente.bairro)+"','"+ encodeURI(cliente.cep)+"','"+ encodeURI(cliente.email)+"','"+ encodeURI(cliente.ativo)+"','"+ encodeURI(cliente.informacoes)+"')>Alterar</button>";    
                 conteudo += "<button type='button' onclick='excluir("+ cliente.id +")'>Excluir</button></td></tr>";
             }
             document.getElementById("listagem").innerHTML = conteudo;
@@ -185,6 +199,23 @@ informacoes: document.getElementById("tx_informacoes").value}));
         xhttp.open("GET","/clientes");
         xhttp.send();
     }
+    function carregarMunicipio(){
+       var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                var dados = JSON.parse(this.responseText);
+                console.log(dados);
+                var conteudo ="";
+                for(var municipio of dados){
+                  conteudo += "<option value="+ municipio.id + ">"+ municipio.nome+"</option>";
+                }
+                document.getElementById("id_municipio").innerHTML = conteudo;
+            }
+        };
+        xhttp.open("GET","/municipios");
+        xhttp.send();
+    }
+    carregarMunicipio();
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
