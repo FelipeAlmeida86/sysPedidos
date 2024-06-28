@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Pagina em VUE</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1> {{ mensagem }} </h1>
+        <h2> {{ info }} </h2>
+        <br>
+        <form>
+            <input type="text" v-model= "input_nome" placeholder="Qual seu nome?"/>
+            <input type="submit" value="enviar" v-on:click="submitForm"/>
+            <button v-bind:disable="isButtonDisable">Button</button>
+        </form>
+        <p>Evento - Bem-vindo {{ nome }} a nossa aula de VUE. </p>
+        <p>Data Binding Bem-vindo {{ input_nome }} a nossa aula de VUE. </p>
+        <p v-if="!isButtonDisable"><span v-html="input_nome"></span></p>
+
+    </div>
+        
+</body>
+    <script>
+        const MyApp = {
+            data(){
+                //Area de dados
+                return{
+                    mensagem: "Teste VUE!",
+                    info:"Teste ínicial do VUE.JS",
+                    input_nome:"",
+                    nome:"",
+                    isButtonDisable: true
+                }
+            },
+            methods:{
+                submitForm(e){
+                    e.preventDefault();
+                    console.log(e);
+                    this.nome = this.input_nome;
+                    this.
+                }
+            }
+        }
+        Vue.createApp(MyApp).mount('#app')
+    </script>
+</html>
